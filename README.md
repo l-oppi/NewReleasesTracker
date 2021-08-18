@@ -1,4 +1,4 @@
-# New Releases Tracker
+# Spotify Releases Tracker
 A Spotify Script that search for new releases for your chosen artists
 
 ## Prerequisites:
@@ -27,3 +27,5 @@ This program is free software: you can redistribute it and/or modify
 it under the terms of the [GNU General Public License](LICENSE.txt) as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
+
+https://$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@github.com/l-oppi/NewReleasesTracker.git
