@@ -21,11 +21,14 @@ Obtained keys must be as environment variables
 1. Start ```main.py``` in a console
 2. Choose between saving/removing artist, show last saved releases or search for new releases.
 
+## Purpose
+
+This script was built with the purpose of using it's functions to provide data for any given app that wants to access any given artists new releases. For a imediate use, i created a structure to use them from command line. Feel free to change and adapt for your own project.
+
+
 ## License
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the [GNU General Public License](LICENSE.txt) as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
-
-https://$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@github.com/l-oppi/NewReleasesTracker.git
