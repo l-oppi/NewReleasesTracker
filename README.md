@@ -28,7 +28,7 @@ This script was built with the purpose of using it's functions to provide data f
 
 ## License
 
-This program is free software: you can redistribute it and/or modify
+This program is a free software: you can redistribute it and/or modify
 it under the terms of the [GNU General Public License](LICENSE.txt) as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
