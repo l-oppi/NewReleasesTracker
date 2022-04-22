@@ -12,12 +12,12 @@ class SpotifyReleasesTracker:
     def __init__(self) -> None:
         self.artists = utils.from_obj(artists_list_path, "artists")
         self.artists_data = utils.open_json(artists_data_path)
+        self.token = SpotifyTokenRefresher().refresh()
 
     def get_artist_code(self, artist) -> str:
-        token = SpotifyTokenRefresher.refresh()
         url = "https://api.spotify.com/v1/search"
         params = {"q": artist, "type":"artist"}
-        headers = {"Authorization": f"Bearer {token}"}
+        headers = {"Authorization": f"Bearer {self.token}"}
         response = requests.get(url, params=params, headers=headers)
         n = 0
         found = False
@@ -38,13 +38,12 @@ class SpotifyReleasesTracker:
             return artist_id
         
     def get_most_recent_album(self, artist_id) -> Union[datetime, str, str]:
-        token = SpotifyTokenRefresher.refresh()
         url = f"https://api.spotify.com/v1/artists/{artist_id}/albums" 
         ''' 
         If you want to set a specific type(album, single, compliation) and market use like the following: {"limit": 50, "include_groups": "album","market": "BR"}
         '''
         params = {"limit": 50}
-        headers = {"Authorization": "Bearer " + token}
+        headers = {"Authorization": f"Bearer {self.token}"}
         response = requests.get(url, params=params, headers=headers)
         loc = response.json()
         albums = {}
