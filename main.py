@@ -5,8 +5,8 @@ from typing import Union
 import utils
 from token_refresher import SpotifyTokenRefresher
 
-artists_data_path = '/include/artists_data.json'
-artists_list_path  = '/include/artists_list.json'
+artists_data_path = 'include/artists_data.json'
+artists_list_path  = 'include/artists_list.json'
 
 class SpotifyReleasesTracker:
     def __init__(self) -> None:
@@ -14,7 +14,7 @@ class SpotifyReleasesTracker:
         self.artists_data = utils.open_json(artists_data_path)
 
     def get_artist_code(self, artist) -> str:
-        token = SpotifyTokenRefresher.refreh()
+        token = SpotifyTokenRefresher.refresh()
         url = "https://api.spotify.com/v1/search"
         params = {"q": artist, "type":"artist"}
         headers = {"Authorization": f"Bearer {token}"}
@@ -38,7 +38,7 @@ class SpotifyReleasesTracker:
             return artist_id
         
     def get_most_recent_album(self, artist_id) -> Union[datetime, str, str]:
-        token = SpotifyTokenRefresher.refreh()
+        token = SpotifyTokenRefresher.refresh()
         url = f"https://api.spotify.com/v1/artists/{artist_id}/albums" 
         ''' 
         If you want to set a specific type(album, single, compliation) and market use like the following: {"limit": 50, "include_groups": "album","market": "BR"}
@@ -258,6 +258,4 @@ def main():
 
 
 if __name__ == '__main__':
-
     main()
-
