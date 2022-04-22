@@ -67,18 +67,18 @@ class SpotifyReleasesTracker:
                     one_album["album_name"] = i["name"]
                 else: 
                     one_album["album_name"] = ""
-                    albums[release_date] = one_album
-            if release_date != None:
-                latest_release = max(albums.keys())
-            else:
-                latest_release = release_date
+                albums[release_date] = one_album
+                if release_date != None:
+                    latest_release = max(albums.keys())
+                else:
+                    latest_release = release_date
         else:
             latest_release = None
             albums[latest_release]["album_name"] = ""
             albums[latest_release]["album_type"] = ""
         return latest_release, albums[latest_release]["album_name"], albums[latest_release]["album_type"]
         
-    def add_artist(self, artist):
+    def add_artist(self, artist) -> None:
         artist_id = self.get_artist_code(artist)
         latest_date, latest_name, latest_type = self.get_most_recent_album(artist_id)
         if latest_date != None:
@@ -93,7 +93,7 @@ class SpotifyReleasesTracker:
             utils.save_json(artists_data_path, artistJson)
             path_exists = True
         if path_exists:
-            data = utils.open(artists_data_path)
+            data = utils.open_json(artists_data_path)
             data["artists"][artist] = {
                 "artist_id": artist_id,
                 "release_date": release_date,
@@ -101,12 +101,12 @@ class SpotifyReleasesTracker:
                 "album_type": latest_type
                 }
             utils.save_json(artists_data_path, data)
-            artists = utils.open(artists_list_path)
+            artists = utils.open_json(artists_list_path)
             if artist not in artists["artists"]:
-                data["artists"].append(artist)
+                artists["artists"].append(artist)
             utils.save_json(artists_list_path, artists)
                 
-    def remove_artist(self, artist):
+    def remove_artist(self, artist) -> None:
         path_exists = False
         if os.path.isfile(artists_data_path):
             path_exists = True
@@ -126,7 +126,7 @@ class SpotifyReleasesTracker:
                 raise Exception("No such artist to be removed from the list!")
             utils.save_json(artists_list_path, artists)
                 
-    def update_artist(self, artist, latest_date, latest_name, latest_type):
+    def update_artist(self, artist, latest_date, latest_name, latest_type) -> None:
         if os.path.isfile(artists_data_path):
             data = utils.open_json(artists_data_path)
             data["artists"][artist]["release_date"] = datetime.timestamp(latest_date)
@@ -137,7 +137,7 @@ class SpotifyReleasesTracker:
             raise Exception("File artist.json does not exist.")
 
 
-    def get_artist_saved(self, artist):
+    def get_artist_saved(self, artist) -> dict:
         path_exists = False
         if os.path.isfile(artists_data_path):
             path_exists = True
@@ -155,7 +155,7 @@ class SpotifyReleasesTracker:
         }
         return current_release
 
-    def compare_releases(self, artist):
+    def compare_releases(self, artist) -> dict:
         current_information = self.get_artist_saved(artist)
         artist_id = current_information[artist]["artist_id"]
         get_date = current_information[artist]["release_date"]
@@ -174,7 +174,7 @@ class SpotifyReleasesTracker:
         else:
             return None
         
-    def gather_updates(self):
+    def gather_updates(self) -> dict:
         artists_list = utils.from_obj(artists_list_path,"artists")
         newer = None
         updates = {}
@@ -187,7 +187,7 @@ class SpotifyReleasesTracker:
         else:
             return None
                 
-    def show_updates(self):
+    def show_updates(self) -> None:
         updates = self.gather_updates()
         if updates != None:
             print(f"\nNew Releases for {utils.get_date('%d/%m/%Y')}:\n")
@@ -199,7 +199,7 @@ class SpotifyReleasesTracker:
         else:
             print("\nThere were no new releases for today. :(\n")
 
-    def show_current_releases(self):
+    def show_current_releases(self) -> None:
         artists = utils.open_json(artists_list_path)
         data = utils.open_json(artists_data_path)
         choosen = False
@@ -214,10 +214,10 @@ class SpotifyReleasesTracker:
                 choosen = True
         print(f"\n{choice} latest release: \n")
         print(f"-Album: {target_artist['release_name']}")
-        print(f"-Release Date: {utils.epoch_to_string(target_artist['release_date'])}")
+        print(f"-Release Date: {utils.epoch_to_str(target_artist['release_date'])}")
         print(f"-Release Type: {target_artist['album_type']}\n")
                 
-    def select_function(self, choice):
+    def select_function(self, choice) -> None:
         if choice == '1':
             new_artist = input("\nNew artist name:")
             self.add_artist(new_artist)
@@ -235,7 +235,7 @@ class SpotifyReleasesTracker:
         else:
             raise Exception("Choose a correct option!")  
 
-def main():
+def main() -> None:
     spt = SpotifyReleasesTracker()
     options = [
         "1 - Add artist",
