@@ -4,8 +4,8 @@ import utils
 
 class SpotifyTokenRefresher:
     def __init__(self) -> None:
-        self.base_64: str = utils.open_json("CONFIG.json")["base_64"]
-        self.refresh_token: str = utils.open_json("CONFIG.json")["refresh_token"]
+        self.base_64: str = utils.from_obj("include/CONFIG.json", "base_64")
+        self.refresh_token: str = utils.from_obj("include/CONFIG.json", "refresh_token")
 
     def refresh(self) -> str:
         data = {
