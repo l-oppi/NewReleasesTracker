@@ -10,7 +10,7 @@ artists_list_path  = '/include/artists_list.json'
 
 class SpotifyReleasesTracker:
     def __init__(self) -> None:
-        self.artists = utils.fromn_obj(artists_list_path, "artists")
+        self.artists = utils.from_obj(artists_list_path, "artists")
         self.artists_data = utils.open_json(artists_data_path)
 
     def get_artist_code(self, artist) -> str:
