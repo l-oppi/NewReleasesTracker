@@ -1,6 +1,8 @@
 import json
 import pendulum as pdl
 import pprint as pp
+import os
+import sys
 
 pp.PrettyPrinter(indent=4)
 
@@ -40,4 +42,4 @@ def debug_json(object) -> None:
     pp.pprint(object)
 
 if __name__ == "__main__":
-    print(get_epoch())
+    print(from_obj("include/CONFIG.json", "refresh_token"))

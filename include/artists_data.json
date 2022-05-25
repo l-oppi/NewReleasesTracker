@@ -1,3 +1,10 @@
 {
-    "artists": {}
+    "artists": {
+        "MAMAMOO": {
+            "artist_id": "0XATRDCYuuGhk0oE7C0o5G",
+            "release_date": 1648004400.0,
+            "release_name": "RED MOON",
+            "album_type": "single"
+        }
+    }
 }
