@@ -50,5 +50,4 @@ def debug_json(object) -> None:
 
 
 if __name__ == "__main__":
-    # print(Utils().from_obj("include/CONFIG.json", "refresh_token"))
     print(get_epoch())
